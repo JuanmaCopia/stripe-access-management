@@ -1,16 +1,13 @@
-I want to create a next js app that allow my followers to buy digital products for me, 
+I want to create a next js app that allow my followers to buy subscriptions to my content,
 paticularly text based content, like articles. The user must be able to see a list of
-avalible products in the dashboard, click on them, if they did not buy it got to the
-checkout to buy it, otherwise access its content. I want to give user two posibiltiies,
-either subcribe to my service or buy individual products directly. I want to have three
+avalible products in the dashboard, click on them, and be able to access their content
+only if they have the appropiate subscription. I want to have three
 types of subscriptions, the "starter", the "pro", and the "ultra". Each of these
 subscriptions allow the user to access a certain set of products. the pro includes the
 starter and the ultra gives access to all my products. I want to offer both monthly and
 yearly subscriptions. I want to use stripe to manage payments. I need to keep track of
 the access of the users. For example if a user cancelled the subscriptions we need to revoke
 access when the time of the subsription finishes. Also if the user did not renew the subscription
-we need to revoke access when the time of the subsription finishes. If a user don't have a
-any subscription and did not pay for a product, we need to revoke access to the product. 
+we need to revoke access when the time of the subsription finishes.
 
 Can you help me with this? how can we implement this? a next js app with stripe?
-or what other payment provider?
