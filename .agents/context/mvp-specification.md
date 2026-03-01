@@ -219,18 +219,17 @@ Important rule:
 
 ## Authentication
 
-Requirement already agreed:
-- use the simplest and easiest login model possible for the MVP
-
-The exact auth implementation has not been finalized in this document yet.
-A strong current recommendation is:
-- Auth.js with email magic links
+The chosen auth approach for the MVP is:
+- Auth.js with Google login
 
 Reason:
-- simple experience for paid readers
-- no password reset flow
+- fastest setup for the MVP
+- no email delivery infrastructure required
+- familiar sign-in flow for users
 
-This remains an implementation choice to confirm before coding.
+Important architectural rule:
+- Google login is an adapter choice, not a core business rule
+- the rest of the system should depend on the local user model and session abstraction, not directly on Google-specific concepts
 
 ## Explicit Non-Goals For The MVP
 
