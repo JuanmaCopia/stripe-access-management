@@ -1,0 +1,27 @@
+{
+  "name": "stripe-access-management",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.1",
+  "engines": {
+    "node": ">=24.13.0",
+    "pnpm": ">=10.30.1"
+  },
+  "scripts": {
+    "dev": "pnpm --recursive --parallel --stream --filter @stripe-access-management/web --filter @stripe-access-management/worker dev",
+    "build": "pnpm --recursive --if-present build",
+    "test": "pnpm --recursive --if-present test",
+    "lint": "pnpm --recursive --if-present lint",
+    "typecheck": "pnpm --recursive --if-present typecheck",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "25.3.3",
+    "eslint": "10.0.2",
+    "globals": "17.4.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.56.1"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "baseUrl": ".",
+    "paths": {
+      "@stripe-access-management/core": ["packages/core/src/index.ts"],
+      "@stripe-access-management/infrastructure": [
+        "packages/infrastructure/src/index.ts"
+      ],
+      "@stripe-access-management/database": ["packages/database/src/index.ts"],
+      "@stripe-access-management/testing": ["packages/testing/src/index.ts"]
+    }
+  }
+}

@@ -1,0 +1,96 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f1e8;
+  --panel: rgba(255, 255, 255, 0.82);
+  --ink: #1e1b18;
+  --muted: #6f655e;
+  --accent: #b2552c;
+  --border: rgba(30, 27, 24, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(178, 85, 44, 0.14), transparent 30%),
+    linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.shell {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0 auto;
+  max-width: 64rem;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+}
+
+.hero,
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 45px rgba(30, 27, 24, 0.08);
+  padding: 2rem;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 0.96;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+  max-width: 42rem;
+}
+
+.moduleList {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  list-style: none;
+  padding: 0;
+}
+
+.moduleList li {
+  background: rgba(178, 85, 44, 0.08);
+  border-radius: 999px;
+  color: var(--ink);
+  padding: 0.8rem 1rem;
+  text-align: center;
+  text-transform: capitalize;
+}
