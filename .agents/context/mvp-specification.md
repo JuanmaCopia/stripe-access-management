@@ -94,6 +94,8 @@ That means:
 - Articles are created and stored by the app.
 - The dashboard reads article data from the local database.
 - Article access checks must also happen against local data.
+- For the MVP, article creation is handled through manual seeding or manual database inserts during development.
+- The MVP does not include an admin authoring UI or external CMS integration.
 
 ### 7. Access revocation behavior
 
@@ -236,6 +238,7 @@ Important architectural rule:
 The MVP does not need:
 - Stripe Entitlements as the runtime access checker
 - custom payment forms
+- an admin article editor or CMS integration
 - per-article manual access rows for each user
 - delayed bank-debit payment methods
 - real-time calls to Stripe when loading article pages

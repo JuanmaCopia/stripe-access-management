@@ -4,6 +4,7 @@ This document defines the step-by-step plan from an empty repository to a finish
 
 It is aligned with these decisions already taken:
 - Next.js app for paid text content
+- manual article seeding for MVP content management
 - three plans: `starter`, `pro`, `ultra`
 - monthly and yearly billing
 - Stripe-hosted Checkout and Customer Portal
@@ -47,6 +48,14 @@ Exit criteria:
 - architecture is written down
 - roadmap exists
 - tracker exists
+
+Phase 0 implementation freeze:
+- MVP content management is manual seeding only; no admin UI or CMS integration is part of the MVP
+- runtime access control remains local to the app database using tier plus `access_expires_at`
+- billing remains Stripe-hosted through Checkout and Customer Portal
+- authentication remains Auth.js with Google as the default MVP adapter
+- webhook processing remains asynchronous through a separate worker and `pg-boss`
+- Phase 1 is limited to scaffolding, tooling, and workspace setup; it does not add domain rules, billing logic, or content-management features
 
 ## Phase 1: Monorepo And Tooling Foundation
 
