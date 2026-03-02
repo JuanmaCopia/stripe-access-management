@@ -6,8 +6,27 @@
   "types": "dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "lint": "eslint src --max-warnings=0",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "build": "pnpm prisma:generate && tsc -p tsconfig.json",
+    "lint": "eslint src prisma --max-warnings=0",
+    "typecheck": "pnpm prisma:generate && tsc -p tsconfig.json --noEmit",
+    "prisma:generate": "node ../../scripts/with-root-env.mjs prisma generate --schema prisma/schema.prisma",
+    "prisma:migrate:dev": "node ../../scripts/with-root-env.mjs prisma migrate dev --schema prisma/schema.prisma",
+    "prisma:migrate:deploy": "node ../../scripts/with-root-env.mjs prisma migrate deploy --schema prisma/schema.prisma",
+    "prisma:reset": "node ../../scripts/with-root-env.mjs prisma migrate reset --force --schema prisma/schema.prisma",
+    "prisma:seed": "node ../../scripts/with-root-env.mjs prisma db seed --schema prisma/schema.prisma",
+    "prisma:studio": "node ../../scripts/with-root-env.mjs prisma studio --schema prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.4.2",
+    "@prisma/client": "7.4.2",
+    "pg": "8.19.0"
+  },
+  "devDependencies": {
+    "dotenv": "17.3.1",
+    "prisma": "7.4.2",
+    "tsx": "4.21.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

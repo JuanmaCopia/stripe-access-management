@@ -68,6 +68,22 @@ export default [
     }
   },
   {
+    files: [
+      "apps/**/*.{ts,tsx}",
+      "packages/core/**/*.{ts,tsx}",
+      "packages/infrastructure/**/*.{ts,tsx}",
+      "packages/testing/**/*.{ts,tsx}"
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          "paths": ["@prisma/client"]
+        }
+      ]
+    }
+  },
+  {
     files: ["apps/web/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": [

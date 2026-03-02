@@ -13,7 +13,18 @@
     "test": "pnpm --recursive --if-present test",
     "lint": "pnpm --recursive --if-present lint",
     "typecheck": "pnpm --recursive --if-present typecheck",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "pnpm db:generate",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs postgres",
+    "db:generate": "pnpm --filter @stripe-access-management/database prisma:generate",
+    "db:migrate": "pnpm --filter @stripe-access-management/database prisma:migrate:deploy",
+    "db:migrate:dev": "pnpm --filter @stripe-access-management/database prisma:migrate:dev",
+    "db:migrate:deploy": "pnpm --filter @stripe-access-management/database prisma:migrate:deploy",
+    "db:reset": "pnpm --filter @stripe-access-management/database prisma:reset",
+    "db:seed": "pnpm --filter @stripe-access-management/database prisma:seed",
+    "db:studio": "pnpm --filter @stripe-access-management/database prisma:studio"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

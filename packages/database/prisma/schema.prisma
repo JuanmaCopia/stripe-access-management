@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PlanTier {
+  STARTER
+  PRO
+  ULTRA
+}
+
+enum BillingInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum StripeSubscriptionStatus {
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+  PAUSED
+}
+
+enum WebhookInboxStatus {
+  PENDING
+  PROCESSING
+  PROCESSED
+  FAILED
+}
+
+model User {
+  id              String         @id @default(cuid())
+  name            String?
+  email           String?        @unique
+  emailVerified   DateTime?
+  image           String?
+  stripeCustomerId String?       @unique
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  accounts        Account[]
+  sessions        Session[]
+  subscription    Subscription?
+
+  @@map("users")
+}
+
+model Account {
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?      @db.Text
+  access_token       String?      @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?      @db.Text
+  session_state      String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([sessionToken])
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([token])
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Article {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  excerpt      String
+  bodyMarkdown String   @db.Text
+  requiredTier PlanTier
+  published    Boolean  @default(false)
+  publishedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([published, requiredTier])
+  @@map("articles")
+}
+
+model Subscription {
+  id                String                   @id @default(cuid())
+  userId            String                   @unique
+  stripeSubscriptionId String                @unique
+  stripeProductId   String
+  stripePriceId     String
+  planTier          PlanTier
+  billingInterval   BillingInterval
+  stripeStatus      StripeSubscriptionStatus
+  cancelAtPeriodEnd Boolean                  @default(false)
+  accessExpiresAt   DateTime?
+  lastSyncedAt      DateTime?
+  createdAt         DateTime                 @default(now())
+  updatedAt         DateTime                 @updatedAt
+  user              User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([planTier, billingInterval])
+  @@index([stripeStatus, accessExpiresAt])
+  @@map("subscriptions")
+}
+
+model StripeWebhookInboxEvent {
+  id            String             @id @default(cuid())
+  stripeEventId String             @unique
+  eventType     String
+  status        WebhookInboxStatus @default(PENDING)
+  payload       Json
+  receivedAt    DateTime           @default(now())
+  processedAt   DateTime?
+  attemptCount  Int                @default(0)
+  lastError     String?            @db.Text
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  @@index([status, receivedAt])
+  @@map("stripe_webhook_inbox_events")
+}
