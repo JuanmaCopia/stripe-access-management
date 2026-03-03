@@ -2,7 +2,7 @@
 
 This file tracks implementation progress for the MVP and records the phase-by-phase handoff contract for future work.
 
-Last updated: March 2, 2026
+Last updated: March 3, 2026
 
 Status legend:
 - `[ ]` Not started
@@ -22,14 +22,15 @@ This tracker references the existing source documents rather than duplicating th
 
 Current implementation state:
 - Phase 0 planning baseline is complete
-- application scaffolding has not started
-- no database schema has been implemented
+- Phase 1 monorepo scaffolding and shared developer tooling are complete
+- Phase 2 database foundation is complete, including Prisma schema, migration, seed flow, and shared package access
+- Phase 3 core domain modules, policies, ports, use cases, and unit tests are complete
 - no authentication flow has been implemented
-- no Stripe integration has been implemented
-- no worker or queue runtime has been implemented
+- no concrete Stripe adapter integration has been implemented
+- no production worker or queue runtime has been implemented
 
 Current focus recommendation:
-- begin Phase 1 and keep it strictly limited to monorepo scaffolding, tooling, and workspace setup
+- begin Phase 4 and keep it strictly limited to infrastructure adapters that implement the Phase 3 ports without moving business rules out of `core`
 
 ## Frozen MVP Implementation Baseline
 
@@ -59,7 +60,7 @@ Prohibited implementation patterns:
 
 ## Phase 1 Bootstrap Checklist
 
-Phase 1 is ready to start because Phase 0 exit criteria are met. The bootstrap scope is intentionally narrow:
+Phase 1 is complete. This checklist records the intentionally narrow scaffold scope that was delivered:
 - initialize the workspace package manager setup
 - create `apps/web`
 - create `apps/worker`
@@ -105,7 +106,7 @@ Phase 1 must not:
 
 ### Phase 1: Monorepo And Tooling Foundation
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: create the repo structure and developer tooling needed for the rest of the implementation
 - Deliverables:
   - workspace package manager setup
@@ -121,10 +122,14 @@ Phase 1 must not:
   - workspace scripts run
   - web and worker apps boot
   - typecheck passes on the empty scaffold
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm build`, and a startup check through `pnpm dev`
+  - Readiness for Phase 2: met
 
 ### Phase 2: Database Foundation
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: establish the persistence model for users, articles, subscriptions, webhook inbox, and jobs
 - Deliverables:
   - PostgreSQL and Prisma setup
@@ -134,16 +139,21 @@ Phase 1 must not:
 - Dependencies:
   - Phase 1 complete
 - Blockers:
-  - waiting for monorepo scaffold and workspace configuration
+  - none
 - Exit criteria:
   - local database boots
   - migrations run successfully
   - seed works
   - Prisma client is accessible through the shared database package
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm db:up`, `pnpm db:migrate`, `pnpm db:seed`, and a runtime import through `packages/database`
+  - The database package entry point now targets the built shared client surface
+  - Readiness for Phase 3: met
 
 ### Phase 3: Core Domain And Use Cases
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: implement the heart of the business logic before wiring UI and Stripe details
 - Deliverables:
   - `identity`, `content`, `catalog`, `subscriptions`, and `access` modules
@@ -153,11 +163,16 @@ Phase 1 must not:
 - Dependencies:
   - Phase 2 complete
 - Blockers:
-  - waiting for database abstractions and shared package boundaries
+  - none
 - Exit criteria:
   - access logic is testable without Next.js or Stripe
   - use cases compile against interfaces only
   - core unit tests pass
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm --filter @stripe-access-management/core test`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`
+  - Phase 3 introduced module-oriented core boundaries, pure access and subscription policies, interface-driven billing and webhook use cases, and Node-based core unit tests
+  - Readiness for Phase 4: met
 
 ### Phase 4: Infrastructure Adapters
 
@@ -172,7 +187,7 @@ Phase 1 must not:
 - Dependencies:
   - Phase 3 complete
 - Blockers:
-  - waiting for core ports and domain contracts
+  - none
 - Exit criteria:
   - core use cases can be composed with real adapters
   - queue can publish and consume jobs
