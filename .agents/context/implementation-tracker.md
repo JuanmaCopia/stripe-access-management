@@ -176,7 +176,7 @@ Phase 1 must not:
 
 ### Phase 4: Infrastructure Adapters
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: connect the core to real systems without leaking external concerns into the domain
 - Deliverables:
   - Prisma repositories
@@ -192,6 +192,12 @@ Phase 1 must not:
   - core use cases can be composed with real adapters
   - queue can publish and consume jobs
   - Stripe adapter can be called from server code
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm --filter @stripe-access-management/infrastructure lint`, `pnpm --filter @stripe-access-management/infrastructure typecheck`, `pnpm db:up`, `pnpm db:migrate`, `pnpm --filter @stripe-access-management/infrastructure test`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`
+  - Phase 4 replaced the infrastructure placeholder with runtime config, console logging, Prisma-backed repositories, a Stripe billing gateway and event normalizer, a durable `pg-boss` queue adapter, Auth.js-ready user scaffolding, and composition helpers that assemble the Phase 3 use cases with real adapters
+  - Focused adapter verification now covers Prisma persistence, Stripe normalization, `pg-boss` publish and consume behavior, auth scaffolding, and infrastructure composition smoke coverage
+  - Readiness for Phase 5: met
 
 ### Phase 5: Authentication And User Session Flow
 
@@ -206,7 +212,7 @@ Phase 1 must not:
 - Dependencies:
   - Phases 2 through 4 complete
 - Blockers:
-  - waiting for database package and auth adapter scaffolding
+  - none
 - Exit criteria:
   - a user can sign in with Google
   - a local user record exists

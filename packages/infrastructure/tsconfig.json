@@ -8,7 +8,11 @@
     "outDir": "dist",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {
+      "@stripe-access-management/core": ["../core/dist/index.d.ts"],
+      "@stripe-access-management/database": ["../database/dist/src/index.d.ts"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"]
