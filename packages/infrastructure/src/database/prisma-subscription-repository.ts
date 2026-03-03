@@ -4,7 +4,7 @@ import type {
   ViewerSubscriptionRepository
 } from "@stripe-access-management/core";
 import type { DatabaseClient } from "@stripe-access-management/database";
-import { mapSubscriptionRecord } from "./mappers.js";
+import { mapSubscriptionRecord } from "./mappers";
 
 const subscriptionSelect = {
   accessExpiresAt: true,

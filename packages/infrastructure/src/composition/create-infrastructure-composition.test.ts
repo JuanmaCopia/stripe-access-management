@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import { after, before, beforeEach, test } from "node:test";
-import { createInfrastructureComposition } from "./create-infrastructure-composition.js";
-import { PgBossQueueAdapter } from "../queue/index.js";
+import { createInfrastructureComposition } from "./create-infrastructure-composition";
+import { PgBossQueueAdapter } from "../queue/index";
 import {
   createIntegrationDatabaseClient,
   createTestCatalogPlanBindings,
   hasDatabaseUrl,
   resetInfrastructureTestDatabase,
   uniqueTestName
-} from "../testing/test-helpers.js";
+} from "../testing/test-helpers";
 
 const databaseAvailable = hasDatabaseUrl();
 const database = databaseAvailable ? createIntegrationDatabaseClient() : null;

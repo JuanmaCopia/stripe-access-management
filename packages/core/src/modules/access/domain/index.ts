@@ -1,1 +1,1 @@
-export * from "./access-policy.js";
+export * from "./access-policy";

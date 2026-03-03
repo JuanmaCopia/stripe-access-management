@@ -5,12 +5,12 @@ import {
   PrismaSubscriptionRepository,
   PrismaUserIdentityRepository,
   PrismaWebhookInboxRepository
-} from "./index.js";
+} from "./index";
 import {
   createIntegrationDatabaseClient,
   hasDatabaseUrl,
   resetInfrastructureTestDatabase
-} from "../testing/test-helpers.js";
+} from "../testing/test-helpers";
 
 const databaseAvailable = hasDatabaseUrl();
 const database = databaseAvailable ? createIntegrationDatabaseClient() : null;

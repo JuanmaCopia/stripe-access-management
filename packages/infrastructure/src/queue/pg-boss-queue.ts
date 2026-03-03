@@ -1,12 +1,12 @@
 import type { QueuePublisher, StripeWebhookQueueIntent } from "@stripe-access-management/core";
 import { PgBoss, type WorkOptions } from "pg-boss";
-import type { QueueRuntimeConfig } from "../config/index.js";
-import type { AppLogger } from "../logging/index.js";
+import type { QueueRuntimeConfig } from "../config/index";
+import type { AppLogger } from "../logging/index";
 import {
   defaultStripeWebhookQueueName,
   mapStripeWebhookIntentToJob,
   type StripeWebhookProcessingJob
-} from "./job-contracts.js";
+} from "./job-contracts";
 
 export interface PgBossQueueAdapterOptions {
   boss?: PgBoss;

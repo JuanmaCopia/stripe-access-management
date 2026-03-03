@@ -1,5 +1,5 @@
-import type { LogLevel } from "../config/index.js";
-import type { AppLogger, LogContext } from "./app-logger.js";
+import type { LogLevel } from "../config/index";
+import type { AppLogger, LogContext } from "./app-logger";
 
 interface ConsoleLike {
   debug(message?: unknown, ...optionalParams: unknown[]): void;

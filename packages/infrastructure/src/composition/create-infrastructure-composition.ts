@@ -8,23 +8,23 @@ import {
   type Clock
 } from "@stripe-access-management/core";
 import {
-  databaseClient,
+  getDatabaseClient,
   type DatabaseClient
 } from "@stripe-access-management/database";
-import { PrismaAuthScaffoldingStore } from "../auth/index.js";
+import { PrismaAuthScaffoldingStore } from "../auth/index";
 import {
   PrismaArticleRepository,
   PrismaSubscriptionRepository,
   PrismaUserIdentityRepository,
   PrismaWebhookInboxRepository
-} from "../database/index.js";
+} from "../database/index";
 import {
   InfrastructureConfigurationError,
   loadInfrastructureRuntimeConfig,
   type InfrastructureRuntimeConfig
-} from "../config/index.js";
-import { ConsoleAppLogger, type AppLogger } from "../logging/index.js";
-import { createPgBossQueueAdapter, type PgBossQueueAdapter } from "../queue/index.js";
+} from "../config/index";
+import { ConsoleAppLogger, type AppLogger } from "../logging/index";
+import { createPgBossQueueAdapter, type PgBossQueueAdapter } from "../queue/index";
 import {
   StaticStripeCatalogPlanResolver,
   StripeBillingGateway,
@@ -32,7 +32,7 @@ import {
   createStripeClient,
   type StripeCatalogPlanBinding,
   type StripeClientLike
-} from "../stripe/index.js";
+} from "../stripe/index";
 
 export interface InfrastructureRepositories {
   articleRepository: PrismaArticleRepository;
@@ -88,7 +88,7 @@ export function createInfrastructureComposition(
   options: CreateInfrastructureCompositionOptions
 ): InfrastructureComposition {
   const config = options.config ?? null;
-  const database = options.database ?? databaseClient;
+  const database = options.database ?? getDatabaseClient();
   const logger =
     options.logger ??
     new ConsoleAppLogger({

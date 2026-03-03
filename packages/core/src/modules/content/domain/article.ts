@@ -1,4 +1,4 @@
-import type { PlanTier } from "../../catalog/domain/index.js";
+import type { PlanTier } from "../../catalog/domain/index";
 
 export interface Article {
   bodyMarkdown: string;

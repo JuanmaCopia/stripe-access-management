@@ -1,11 +1,11 @@
 import {
   type ArticleAccessDecision,
   evaluateArticleAccess
-} from "../../access/domain/index.js";
-import type { Clock } from "../../../shared/kernel/index.js";
-import { systemClock } from "../../../shared/kernel/index.js";
-import { isArticlePublished } from "../domain/index.js";
-import type { ArticleRepository, ViewerSubscriptionRepository } from "./ports.js";
+} from "../../access/domain/index";
+import type { Clock } from "../../../shared/kernel/index";
+import { systemClock } from "../../../shared/kernel/index";
+import { isArticlePublished } from "../domain/index";
+import type { ArticleRepository, ViewerSubscriptionRepository } from "./ports";
 
 export interface DashboardArticleSummary {
   access: ArticleAccessDecision;

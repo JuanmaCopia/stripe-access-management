@@ -1,6 +1,6 @@
-import type { BillingInterval, PlanTier } from "../../catalog/domain/index.js";
-import type { StripeSubscriptionStatus } from "../domain/index.js";
-import type { JsonObject } from "../../../shared/kernel/index.js";
+import type { BillingInterval, PlanTier } from "../../catalog/domain/index";
+import type { StripeSubscriptionStatus } from "../domain/index";
+import type { JsonObject } from "../../../shared/kernel/index";
 
 export const supportedStripeEventTypes = [
   "checkout.session.completed",

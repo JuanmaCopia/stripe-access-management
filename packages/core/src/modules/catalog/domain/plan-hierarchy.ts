@@ -1,4 +1,4 @@
-import type { PlanTier } from "./plan-tier.js";
+import type { PlanTier } from "./plan-tier";
 
 const planTierRank: Record<PlanTier, number> = {
   STARTER: 0,

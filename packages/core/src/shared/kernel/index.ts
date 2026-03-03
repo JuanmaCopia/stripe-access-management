@@ -1,3 +1,3 @@
-export * from "./result.js";
-export * from "./time/clock.js";
-export * from "./types/json-value.js";
+export * from "./result";
+export * from "./time/clock";
+export * from "./types/json-value";

@@ -1,8 +1,8 @@
 import type {
   NormalizedStripeEvent,
   StripeWebhookQueueIntent
-} from "./contracts.js";
-import type { QueuePublisher, WebhookInboxRepository } from "./ports.js";
+} from "./contracts";
+import type { QueuePublisher, WebhookInboxRepository } from "./ports";
 
 export interface RecordStripeWebhookInput {
   event: NormalizedStripeEvent;

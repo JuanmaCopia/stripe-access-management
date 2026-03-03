@@ -23,6 +23,11 @@ export interface AuthRuntimeConfig {
   googleClientSecret: string | null;
 }
 
+export interface GoogleOAuthRuntimeConfig {
+  clientId: string;
+  clientSecret: string;
+}
+
 export interface LoggingRuntimeConfig {
   level: LogLevel;
 }
@@ -104,6 +109,21 @@ export function loadAuthRuntimeConfig(
     ),
     googleClientId: readOptionalString(reader, "GOOGLE_CLIENT_ID"),
     googleClientSecret: readOptionalString(reader, "GOOGLE_CLIENT_SECRET")
+  };
+}
+
+export function requireGoogleOAuthRuntimeConfig(
+  config: AuthRuntimeConfig
+): GoogleOAuthRuntimeConfig {
+  if (!config.googleClientId || !config.googleClientSecret) {
+    throw new InfrastructureConfigurationError(
+      "GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET are required for Google sign-in."
+    );
+  }
+
+  return {
+    clientId: config.googleClientId,
+    clientSecret: config.googleClientSecret
   };
 }
 

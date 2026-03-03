@@ -16,7 +16,7 @@ import {
   readStripePlanMetadata,
   resolveStripeCatalogPlanBinding,
   type StripeCatalogPlanBinding
-} from "./stripe-catalog.js";
+} from "./stripe-catalog";
 
 export interface NormalizeStripeEventInput {
   event: Stripe.Event;

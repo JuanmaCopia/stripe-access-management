@@ -1,6 +1,6 @@
 import type { UserIdentityRepository } from "@stripe-access-management/core";
 import type { DatabaseClient } from "@stripe-access-management/database";
-import { mapUserRecordToIdentity } from "./mappers.js";
+import { mapUserRecordToIdentity } from "./mappers";
 
 const userIdentitySelect = {
   email: true,

@@ -1,5 +1,5 @@
-import type { SubscriptionRecord } from "../../subscriptions/domain/index.js";
-import type { Article } from "../domain/index.js";
+import type { SubscriptionRecord } from "../../subscriptions/domain/index";
+import type { Article } from "../domain/index";
 
 export interface ArticleRepository {
   findBySlug(slug: string): Promise<Article | null>;

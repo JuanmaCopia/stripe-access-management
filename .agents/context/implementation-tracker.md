@@ -25,12 +25,12 @@ Current implementation state:
 - Phase 1 monorepo scaffolding and shared developer tooling are complete
 - Phase 2 database foundation is complete, including Prisma schema, migration, seed flow, and shared package access
 - Phase 3 core domain modules, policies, ports, use cases, and unit tests are complete
-- no authentication flow has been implemented
-- no concrete Stripe adapter integration has been implemented
+- Phase 4 infrastructure adapters are complete, including Prisma repositories, Stripe and queue adapters, auth scaffolding, logging, and runtime configuration
+- Phase 5 Google authentication, local-user linking, session helpers, and protected member routes are complete
 - no production worker or queue runtime has been implemented
 
 Current focus recommendation:
-- begin Phase 4 and keep it strictly limited to infrastructure adapters that implement the Phase 3 ports without moving business rules out of `core`
+- begin Phase 6 and keep it focused on the member content experience that now depends on the completed authenticated session boundary
 
 ## Frozen MVP Implementation Baseline
 
@@ -201,7 +201,7 @@ Phase 1 must not:
 
 ### Phase 5: Authentication And User Session Flow
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: let users sign in with Google and establish a stable local user record
 - Deliverables:
   - Auth.js configuration in `apps/web`
@@ -218,6 +218,12 @@ Phase 1 must not:
   - a local user record exists
   - protected routes work
   - server-side session lookup is stable
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm --filter @stripe-access-management/web lint`, `pnpm --filter @stripe-access-management/web typecheck`, `pnpm --filter @stripe-access-management/web test`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`
+  - Phase 5 introduced Auth.js with Google in `apps/web`, deterministic local-user linking through the infrastructure auth scaffolding, normalized server-side session helpers, server-enforced protection for the first member routes, and focused web auth tests
+  - Web auth and package imports now use workspace-safe env loading and extensionless internal imports so Next.js can build the linked source tree without leaking auth concerns across boundaries
+  - Readiness for Phase 6: met
 
 ### Phase 6: Content Model And Reader Experience
 
@@ -232,7 +238,7 @@ Phase 1 must not:
 - Dependencies:
   - Phases 2 through 5 complete
 - Blockers:
-  - waiting for auth flow and core access rules
+  - none
 - Exit criteria:
   - signed-in users can browse content
   - locked and unlocked states render correctly

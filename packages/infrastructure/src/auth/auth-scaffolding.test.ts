@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { after, before, beforeEach, test } from "node:test";
-import { PrismaAuthScaffoldingStore } from "./auth-scaffolding.js";
+import { PrismaAuthScaffoldingStore } from "./auth-scaffolding";
 import {
   createIntegrationDatabaseClient,
   hasDatabaseUrl,
   resetInfrastructureTestDatabase
-} from "../testing/test-helpers.js";
+} from "../testing/test-helpers";
 
 const databaseAvailable = hasDatabaseUrl();
 const database = databaseAvailable ? createIntegrationDatabaseClient() : null;

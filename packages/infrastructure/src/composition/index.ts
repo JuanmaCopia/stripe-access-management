@@ -1,1 +1,1 @@
-export * from "./create-infrastructure-composition.js";
+export * from "./create-infrastructure-composition";

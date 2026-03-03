@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type Stripe from "stripe";
-import { StripeEventNormalizer } from "./stripe-event-normalizer.js";
-import { createTestCatalogPlanBindings } from "../testing/test-helpers.js";
+import { StripeEventNormalizer } from "./stripe-event-normalizer";
+import { createTestCatalogPlanBindings } from "../testing/test-helpers";
 
 const normalizer = new StripeEventNormalizer({
   catalogPlanBindings: createTestCatalogPlanBindings()

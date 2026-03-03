@@ -1,2 +1,2 @@
-export * from "./stripe-subscription-status.js";
-export * from "./subscription-record.js";
+export * from "./stripe-subscription-status";
+export * from "./subscription-record";

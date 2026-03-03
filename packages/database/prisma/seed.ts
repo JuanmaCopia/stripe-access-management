@@ -1,6 +1,6 @@
 import { PlanTier } from "@prisma/client";
 
-import { createDatabaseClient } from "../src/client.js";
+import { createDatabaseClient } from "../src/client";
 
 const prisma = createDatabaseClient();
 

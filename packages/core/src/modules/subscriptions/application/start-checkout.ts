@@ -1,14 +1,14 @@
-import type { CatalogPlanResolver } from "../../catalog/application/index.js";
-import type { PlanSelection } from "../../catalog/domain/index.js";
-import type { UserIdentityRepository } from "../../identity/application/index.js";
-import type { Clock } from "../../../shared/kernel/index.js";
-import { systemClock } from "../../../shared/kernel/index.js";
+import type { CatalogPlanResolver } from "../../catalog/application/index";
+import type { PlanSelection } from "../../catalog/domain/index";
+import type { UserIdentityRepository } from "../../identity/application/index";
+import type { Clock } from "../../../shared/kernel/index";
+import { systemClock } from "../../../shared/kernel/index";
 import {
   hasActivePaidAccess,
   matchesPlanSelection,
   type SubscriptionRecord
-} from "../domain/index.js";
-import type { BillingGateway, SubscriptionRepository } from "./ports.js";
+} from "../domain/index";
+import type { BillingGateway, SubscriptionRepository } from "./ports";
 
 export interface StartCheckoutInput {
   cancelUrl: string;

@@ -3,7 +3,7 @@ import type {
   WebhookInboxRepository
 } from "@stripe-access-management/core";
 import type { DatabaseClient } from "@stripe-access-management/database";
-import { mapWebhookInboxRecord } from "./mappers.js";
+import { mapWebhookInboxRecord } from "./mappers";
 
 const webhookInboxSelect = {
   eventType: true,

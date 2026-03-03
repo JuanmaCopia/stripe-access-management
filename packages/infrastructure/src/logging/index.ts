@@ -1,2 +1,2 @@
-export * from "./app-logger.js";
-export * from "./console-app-logger.js";
+export * from "./app-logger";
+export * from "./console-app-logger";

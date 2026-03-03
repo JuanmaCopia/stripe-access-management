@@ -1,5 +1,5 @@
-import type { BillingInterval } from "./billing-interval.js";
-import type { PlanTier } from "./plan-tier.js";
+import type { BillingInterval } from "./billing-interval";
+import type { PlanTier } from "./plan-tier";
 
 export interface PlanSelection {
   billingInterval: BillingInterval;

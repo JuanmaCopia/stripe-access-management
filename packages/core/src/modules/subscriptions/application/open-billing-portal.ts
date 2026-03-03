@@ -1,5 +1,5 @@
-import type { UserIdentityRepository } from "../../identity/application/index.js";
-import type { BillingGateway } from "./ports.js";
+import type { UserIdentityRepository } from "../../identity/application/index";
+import type { BillingGateway } from "./ports";
 
 export interface OpenBillingPortalInput {
   returnUrl: string;

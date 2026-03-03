@@ -1,5 +1,5 @@
 import { createDatabaseClient, type DatabaseClient } from "@stripe-access-management/database";
-import type { StripeCatalogPlanBinding } from "../stripe/index.js";
+import type { StripeCatalogPlanBinding } from "../stripe/index";
 
 export function createTestCatalogPlanBindings(): readonly StripeCatalogPlanBinding[] {
   return [

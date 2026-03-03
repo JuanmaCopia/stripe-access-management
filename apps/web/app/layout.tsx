@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Stripe Access Management",
-  description: "Phase 1 scaffold for the subscription content platform."
+  description: "Google sign-in and local member access for the subscription content platform."
 };
 
 type RootLayoutProps = {

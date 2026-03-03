@@ -1,9 +1,9 @@
-import type { BillingInterval, PlanSelection, PlanTier } from "../../catalog/domain/index.js";
-import { isSamePlanSelection } from "../../catalog/domain/index.js";
+import type { BillingInterval, PlanSelection, PlanTier } from "../../catalog/domain/index";
+import { isSamePlanSelection } from "../../catalog/domain/index";
 import {
   allowsAccessUntilExpiry,
   type StripeSubscriptionStatus
-} from "./stripe-subscription-status.js";
+} from "./stripe-subscription-status";
 
 export interface SubscriptionProjection {
   accessExpiresAt: Date | null;

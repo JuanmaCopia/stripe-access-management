@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { evaluateArticleAccess } from "./access-policy.js";
-import type { SubscriptionRecord } from "../../subscriptions/domain/index.js";
+import { evaluateArticleAccess } from "./access-policy";
+import type { SubscriptionRecord } from "../../subscriptions/domain/index";
 
 function createSubscription(
   overrides: Partial<SubscriptionRecord> = {}

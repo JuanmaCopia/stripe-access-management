@@ -4,7 +4,7 @@ import test from "node:test";
 import {
   comparePlanTier,
   satisfiesRequiredTier
-} from "./plan-hierarchy.js";
+} from "./plan-hierarchy";
 
 test("comparePlanTier orders Starter, Pro, and Ultra from lowest to highest", () => {
   assert.equal(comparePlanTier("STARTER", "PRO") < 0, true);

@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import type { StripeRuntimeConfig } from "../config/index.js";
+import type { StripeRuntimeConfig } from "../config/index";
 
 export interface StripeCheckoutSessionsClient {
   create(input: {

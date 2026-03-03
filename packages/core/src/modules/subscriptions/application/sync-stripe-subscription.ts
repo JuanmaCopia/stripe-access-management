@@ -1,15 +1,15 @@
-import type { Clock } from "../../../shared/kernel/index.js";
-import { systemClock } from "../../../shared/kernel/index.js";
+import type { Clock } from "../../../shared/kernel/index";
+import { systemClock } from "../../../shared/kernel/index";
 import type {
   NormalizedStripeEvent,
   NormalizedSubscriptionSnapshot,
   StripeEventType
-} from "./contracts.js";
-import type { SubscriptionRepository } from "./ports.js";
+} from "./contracts";
+import type { SubscriptionRepository } from "./ports";
 import type {
   SubscriptionProjection,
   SubscriptionRecord
-} from "../domain/index.js";
+} from "../domain/index";
 
 export type SyncStripeSubscriptionResult =
   | {

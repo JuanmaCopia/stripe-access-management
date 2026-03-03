@@ -9,8 +9,15 @@ const authUserSelect = {
 } as const;
 
 export interface AuthProviderAccountReference {
+  accessToken?: string | null;
+  expiresAt?: number | null;
+  idToken?: string | null;
   provider: string;
   providerAccountId: string;
+  refreshToken?: string | null;
+  scope?: string | null;
+  sessionState?: string | null;
+  tokenType?: string | null;
   type: string;
 }
 
@@ -94,6 +101,19 @@ export class PrismaAuthScaffoldingStore {
       });
 
       if (existingLinkedAccount?.user) {
+        await transaction.account.update({
+          data: buildAuthAccountData(
+            input.account,
+            existingLinkedAccount.user.id
+          ),
+          where: {
+            provider_providerAccountId: {
+              provider: input.account.provider,
+              providerAccountId: input.account.providerAccountId
+            }
+          }
+        });
+
         const updatedUser = await transaction.user.update({
           data: buildAuthUserProfileUpdate(input.profile),
           select: authUserSelect,
@@ -132,16 +152,8 @@ export class PrismaAuthScaffoldingStore {
           });
 
       await transaction.account.upsert({
-        create: {
-          provider: input.account.provider,
-          providerAccountId: input.account.providerAccountId,
-          type: input.account.type,
-          userId: user.id
-        },
-        update: {
-          type: input.account.type,
-          userId: user.id
-        },
+        create: buildAuthAccountData(input.account, user.id),
+        update: buildAuthAccountData(input.account, user.id),
         where: {
           provider_providerAccountId: {
             provider: input.account.provider,
@@ -176,5 +188,24 @@ function buildAuthUserProfileUpdate(profile: AuthProviderProfile) {
     email: profile.email,
     image: profile.imageUrl,
     name: profile.name
+  };
+}
+
+function buildAuthAccountData(
+  account: AuthProviderAccountReference,
+  userId: string
+) {
+  return {
+    access_token: account.accessToken,
+    expires_at: account.expiresAt,
+    id_token: account.idToken,
+    provider: account.provider,
+    providerAccountId: account.providerAccountId,
+    refresh_token: account.refreshToken,
+    scope: account.scope,
+    session_state: account.sessionState,
+    token_type: account.tokenType,
+    type: account.type,
+    userId
   };
 }

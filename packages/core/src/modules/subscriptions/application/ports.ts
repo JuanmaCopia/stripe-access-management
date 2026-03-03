@@ -1,14 +1,14 @@
-import type { CatalogPlan } from "../../catalog/domain/index.js";
-import type { UserIdentity } from "../../identity/domain/index.js";
+import type { CatalogPlan } from "../../catalog/domain/index";
+import type { UserIdentity } from "../../identity/domain/index";
 import type {
   NormalizedStripeEvent,
   RecordedStripeWebhookEvent,
   StripeWebhookQueueIntent
-} from "./contracts.js";
+} from "./contracts";
 import type {
   SubscriptionProjection,
   SubscriptionRecord
-} from "../domain/index.js";
+} from "../domain/index";
 
 export interface SubscriptionRepository {
   findByStripeSubscriptionId(

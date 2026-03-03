@@ -1,27 +1,27 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { CatalogPlanResolver } from "../../catalog/application/index.js";
-import type { CatalogPlan, PlanSelection } from "../../catalog/domain/index.js";
-import type { UserIdentityRepository } from "../../identity/application/index.js";
-import type { UserIdentity } from "../../identity/domain/index.js";
-import type { Clock, JsonObject } from "../../../shared/kernel/index.js";
-import { OpenBillingPortalUseCase } from "./open-billing-portal.js";
-import { RecordStripeWebhookUseCase } from "./record-stripe-webhook.js";
-import { StartCheckoutUseCase } from "./start-checkout.js";
-import { SyncStripeSubscriptionUseCase } from "./sync-stripe-subscription.js";
+import type { CatalogPlanResolver } from "../../catalog/application/index";
+import type { CatalogPlan, PlanSelection } from "../../catalog/domain/index";
+import type { UserIdentityRepository } from "../../identity/application/index";
+import type { UserIdentity } from "../../identity/domain/index";
+import type { Clock, JsonObject } from "../../../shared/kernel/index";
+import { OpenBillingPortalUseCase } from "./open-billing-portal";
+import { RecordStripeWebhookUseCase } from "./record-stripe-webhook";
+import { StartCheckoutUseCase } from "./start-checkout";
+import { SyncStripeSubscriptionUseCase } from "./sync-stripe-subscription";
 import type {
   NormalizedStripeEvent,
   RecordedStripeWebhookEvent,
   StripeWebhookQueueIntent
-} from "./contracts.js";
+} from "./contracts";
 import type {
   BillingGateway,
   QueuePublisher,
   SubscriptionRepository,
   WebhookInboxRepository
-} from "./ports.js";
-import type { SubscriptionProjection, SubscriptionRecord } from "../domain/index.js";
+} from "./ports";
+import type { SubscriptionProjection, SubscriptionRecord } from "../domain/index";
 
 const now = new Date("2026-03-03T00:00:00.000Z");
 

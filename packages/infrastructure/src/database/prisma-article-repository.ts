@@ -1,6 +1,6 @@
 import type { ArticleRepository } from "@stripe-access-management/core";
 import type { DatabaseClient } from "@stripe-access-management/database";
-import { mapArticleRecordToArticle } from "./mappers.js";
+import { mapArticleRecordToArticle } from "./mappers";
 
 const articleSelect = {
   bodyMarkdown: true,

@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ListDashboardArticlesUseCase } from "./list-dashboard-articles.js";
-import { ReadArticleUseCase } from "./read-article.js";
-import type { ArticleRepository, ViewerSubscriptionRepository } from "./ports.js";
-import type { Article } from "../domain/index.js";
-import type { SubscriptionRecord } from "../../subscriptions/domain/index.js";
-import type { Clock } from "../../../shared/kernel/index.js";
+import { ListDashboardArticlesUseCase } from "./list-dashboard-articles";
+import { ReadArticleUseCase } from "./read-article";
+import type { ArticleRepository, ViewerSubscriptionRepository } from "./ports";
+import type { Article } from "../domain/index";
+import type { SubscriptionRecord } from "../../subscriptions/domain/index";
+import type { Clock } from "../../../shared/kernel/index";
 
 const now = new Date("2026-03-03T00:00:00.000Z");
 

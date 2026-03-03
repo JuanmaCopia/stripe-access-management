@@ -1,8 +1,8 @@
-import { satisfiesRequiredTier, type PlanTier } from "../../catalog/domain/index.js";
+import { satisfiesRequiredTier, type PlanTier } from "../../catalog/domain/index";
 import {
   hasActivePaidAccess,
   type SubscriptionRecord
-} from "../../subscriptions/domain/index.js";
+} from "../../subscriptions/domain/index";
 
 export type ArticleAccessDeniedReason =
   | "access_expired"

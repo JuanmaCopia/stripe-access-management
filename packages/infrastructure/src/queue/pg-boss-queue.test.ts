@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { PgBossQueueAdapter } from "./pg-boss-queue.js";
+import { PgBossQueueAdapter } from "./pg-boss-queue";
 import {
   hasDatabaseUrl,
   uniqueTestName
-} from "../testing/test-helpers.js";
+} from "../testing/test-helpers";
 
 const databaseAvailable = hasDatabaseUrl();
 

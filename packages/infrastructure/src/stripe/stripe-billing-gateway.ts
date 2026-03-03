@@ -4,10 +4,10 @@ import type {
   SubscriptionRecord,
   UserIdentity
 } from "@stripe-access-management/core";
-import { InfrastructureConfigurationError } from "../config/index.js";
-import type { AppLogger } from "../logging/index.js";
-import { buildStripePlanMetadata, resolveStripeCatalogPlanBinding, type StripeCatalogPlanBinding } from "./stripe-catalog.js";
-import type { StripeClientLike } from "./stripe-client.js";
+import { InfrastructureConfigurationError } from "../config/index";
+import type { AppLogger } from "../logging/index";
+import { buildStripePlanMetadata, resolveStripeCatalogPlanBinding, type StripeCatalogPlanBinding } from "./stripe-catalog";
+import type { StripeClientLike } from "./stripe-client";
 
 export interface StripeBillingGatewayOptions {
   billingPortalConfigurationId?: string | null;

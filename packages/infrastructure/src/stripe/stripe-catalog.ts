@@ -6,7 +6,7 @@ import type {
   PlanTier
 } from "@stripe-access-management/core";
 import { billingIntervals, planTiers } from "@stripe-access-management/core";
-import { InfrastructureConfigurationError } from "../config/index.js";
+import { InfrastructureConfigurationError } from "../config/index";
 
 export interface StripeCatalogPlanBinding extends CatalogPlan {
   stripePriceId: string;

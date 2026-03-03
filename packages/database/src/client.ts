@@ -31,13 +31,52 @@ export function createDatabaseClient() {
 
 export type DatabaseClient = PrismaClient;
 
-export const databaseClient =
-  globalThis.__stripeAccessManagementPrisma__ ?? createPrismaClientInstance();
+let cachedDatabaseClient: PrismaClient | undefined;
 
-if (process.env.NODE_ENV !== "production") {
-  globalThis.__stripeAccessManagementPrisma__ = databaseClient;
+function resolveDatabaseClient(): PrismaClient {
+  if (process.env.NODE_ENV === "production") {
+    return createPrismaClientInstance();
+  }
+
+  if (!globalThis.__stripeAccessManagementPrisma__) {
+    globalThis.__stripeAccessManagementPrisma__ = createPrismaClientInstance();
+  }
+
+  return globalThis.__stripeAccessManagementPrisma__;
 }
 
+export function getDatabaseClient(): DatabaseClient {
+  cachedDatabaseClient ??= resolveDatabaseClient();
+
+  return cachedDatabaseClient;
+}
+
+export const databaseClient = new Proxy({} as DatabaseClient, {
+  get(_target, property) {
+    const client = getDatabaseClient();
+    const value = Reflect.get(client, property, client);
+
+    return typeof value === "function" ? value.bind(client) : value;
+  },
+  set(_target, property, value) {
+    const client = getDatabaseClient();
+
+    return Reflect.set(client, property, value, client);
+  }
+}) as DatabaseClient;
+
 export async function disconnectDatabaseClient() {
-  await databaseClient.$disconnect();
+  const client =
+    cachedDatabaseClient ?? globalThis.__stripeAccessManagementPrisma__;
+
+  if (!client) {
+    return;
+  }
+
+  await client.$disconnect();
+  cachedDatabaseClient = undefined;
+
+  if (process.env.NODE_ENV !== "production") {
+    globalThis.__stripeAccessManagementPrisma__ = undefined;
+  }
 }
