@@ -1,57 +1,32 @@
 import { createDatabaseClient, type DatabaseClient } from "@stripe-access-management/database";
-import type { StripeCatalogPlanBinding } from "../stripe/index";
+import type { StripeCatalogRuntimeConfig } from "../config/index";
+import {
+  buildStripeCatalogPlanBindings,
+  type StripeCatalogPlanBinding
+} from "../stripe/index";
 
 export function createTestCatalogPlanBindings(): readonly StripeCatalogPlanBinding[] {
-  return [
-    {
-      billingInterval: "MONTHLY",
-      displayName: "Starter Monthly",
-      lookupKey: "starter-monthly",
-      stripePriceId: "price_starter_monthly",
-      stripeProductId: "prod_starter_monthly",
-      tier: "STARTER"
+  return buildStripeCatalogPlanBindings(createTestStripeCatalogRuntimeConfig());
+}
+
+export function createTestStripeCatalogRuntimeConfig(): StripeCatalogRuntimeConfig {
+  return {
+    pro: {
+      monthlyPriceId: "price_pro_monthly",
+      productId: "prod_pro",
+      yearlyPriceId: "price_pro_yearly"
     },
-    {
-      billingInterval: "YEARLY",
-      displayName: "Starter Yearly",
-      lookupKey: "starter-yearly",
-      stripePriceId: "price_starter_yearly",
-      stripeProductId: "prod_starter_yearly",
-      tier: "STARTER"
+    starter: {
+      monthlyPriceId: "price_starter_monthly",
+      productId: "prod_starter",
+      yearlyPriceId: "price_starter_yearly"
     },
-    {
-      billingInterval: "MONTHLY",
-      displayName: "Pro Monthly",
-      lookupKey: "pro-monthly",
-      stripePriceId: "price_pro_monthly",
-      stripeProductId: "prod_pro_monthly",
-      tier: "PRO"
-    },
-    {
-      billingInterval: "YEARLY",
-      displayName: "Pro Yearly",
-      lookupKey: "pro-yearly",
-      stripePriceId: "price_pro_yearly",
-      stripeProductId: "prod_pro_yearly",
-      tier: "PRO"
-    },
-    {
-      billingInterval: "MONTHLY",
-      displayName: "Ultra Monthly",
-      lookupKey: "ultra-monthly",
-      stripePriceId: "price_ultra_monthly",
-      stripeProductId: "prod_ultra_monthly",
-      tier: "ULTRA"
-    },
-    {
-      billingInterval: "YEARLY",
-      displayName: "Ultra Yearly",
-      lookupKey: "ultra-yearly",
-      stripePriceId: "price_ultra_yearly",
-      stripeProductId: "prod_ultra_yearly",
-      tier: "ULTRA"
+    ultra: {
+      monthlyPriceId: "price_ultra_monthly",
+      productId: "prod_ultra",
+      yearlyPriceId: "price_ultra_yearly"
     }
-  ] as const;
+  };
 }
 
 export function createIntegrationDatabaseClient(): DatabaseClient {

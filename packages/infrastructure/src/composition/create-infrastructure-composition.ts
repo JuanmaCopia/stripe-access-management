@@ -29,6 +29,7 @@ import {
   StaticStripeCatalogPlanResolver,
   StripeBillingGateway,
   StripeEventNormalizer,
+  buildStripeCatalogPlanBindings,
   createStripeClient,
   type StripeCatalogPlanBinding,
   type StripeClientLike
@@ -75,7 +76,7 @@ export interface InfrastructureComposition {
 
 export interface CreateInfrastructureCompositionOptions {
   billingPortalConfigurationId?: string | null;
-  catalogPlanBindings: readonly StripeCatalogPlanBinding[];
+  catalogPlanBindings?: readonly StripeCatalogPlanBinding[];
   clock?: Clock;
   config?: InfrastructureRuntimeConfig;
   database?: DatabaseClient;
@@ -89,6 +90,10 @@ export function createInfrastructureComposition(
 ): InfrastructureComposition {
   const config = options.config ?? null;
   const database = options.database ?? getDatabaseClient();
+  const catalogPlanBindings = resolveCatalogPlanBindings({
+    bindings: options.catalogPlanBindings,
+    config
+  });
   const logger =
     options.logger ??
     new ConsoleAppLogger({
@@ -117,16 +122,16 @@ export function createInfrastructureComposition(
     database
   });
   const planResolver = new StaticStripeCatalogPlanResolver(
-    options.catalogPlanBindings
+    catalogPlanBindings
   );
   const billingGateway = new StripeBillingGateway({
     billingPortalConfigurationId: options.billingPortalConfigurationId,
-    catalogPlanBindings: options.catalogPlanBindings,
+    catalogPlanBindings,
     logger,
     stripeClient
   });
   const eventNormalizer = new StripeEventNormalizer({
-    catalogPlanBindings: options.catalogPlanBindings
+    catalogPlanBindings
   });
   const repositories: InfrastructureRepositories = {
     articleRepository,
@@ -140,7 +145,7 @@ export function createInfrastructureComposition(
       scaffolding: authScaffolding
     },
     catalog: {
-      bindings: options.catalogPlanBindings,
+      bindings: catalogPlanBindings,
       planResolver
     },
     config,
@@ -213,4 +218,21 @@ function resolveStripeClient(
   }
 
   return createStripeClient(config.stripe);
+}
+
+function resolveCatalogPlanBindings(input: {
+  bindings: readonly StripeCatalogPlanBinding[] | undefined;
+  config: InfrastructureRuntimeConfig | null;
+}): readonly StripeCatalogPlanBinding[] {
+  if (input.bindings) {
+    return input.bindings;
+  }
+
+  if (!input.config) {
+    throw new InfrastructureConfigurationError(
+      "Catalog plan bindings or runtime config must be provided when composing infrastructure services."
+    );
+  }
+
+  return buildStripeCatalogPlanBindings(input.config.stripeCatalog);
 }

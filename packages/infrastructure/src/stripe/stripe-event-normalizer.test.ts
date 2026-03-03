@@ -21,7 +21,7 @@ test("StripeEventNormalizer maps checkout session metadata into the core contrac
           planLookupKey: "pro-monthly",
           planTier: "PRO",
           stripePriceId: "price_pro_monthly",
-          stripeProductId: "prod_pro_monthly"
+          stripeProductId: "prod_pro"
         },
         payment_status: "paid",
         subscription: "sub_checkout"
@@ -59,7 +59,7 @@ test("StripeEventNormalizer maps invoice.paid events into access-extension snaps
               pricing: {
                 price_details: {
                   price: "price_pro_monthly",
-                  product: "prod_pro_monthly"
+                  product: "prod_pro"
                 },
                 type: "price_details",
                 unit_amount_decimal: "1900"
@@ -78,7 +78,7 @@ test("StripeEventNormalizer maps invoice.paid events into access-extension snaps
               planLookupKey: "pro-monthly",
               planTier: "PRO",
               stripePriceId: "price_pro_monthly",
-              stripeProductId: "prod_pro_monthly"
+              stripeProductId: "prod_pro"
             },
             subscription: "sub_invoice",
             subscription_proration_date: 1_772_503_200

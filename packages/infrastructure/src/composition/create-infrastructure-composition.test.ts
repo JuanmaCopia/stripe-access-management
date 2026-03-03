@@ -5,6 +5,7 @@ import { PgBossQueueAdapter } from "../queue/index";
 import {
   createIntegrationDatabaseClient,
   createTestCatalogPlanBindings,
+  createTestStripeCatalogRuntimeConfig,
   hasDatabaseUrl,
   resetInfrastructureTestDatabase,
   uniqueTestName
@@ -42,6 +43,9 @@ test(
   { concurrency: false, skip: !databaseAvailable },
   async () => {
     assert.ok(database);
+    const databaseUrl = process.env.DATABASE_URL;
+
+    assert.ok(databaseUrl);
 
     const user = await database.user.create({
       data: {
@@ -64,11 +68,31 @@ test(
     });
 
     const queueAdapter = new PgBossQueueAdapter({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: databaseUrl,
       queueName: uniqueTestName("composition-webhook")
     });
     const composition = createInfrastructureComposition({
-      catalogPlanBindings: createTestCatalogPlanBindings(),
+      config: {
+        appEnvironment: "test",
+        auth: {
+          authSecret: "test-auth-secret",
+          googleClientId: "google-client-id",
+          googleClientSecret: "google-client-secret"
+        },
+        logging: {
+          level: "debug"
+        },
+        queue: {
+          connectionString: databaseUrl,
+          schema: "pgboss",
+          stripeWebhookQueueName: uniqueTestName("composition-webhook-queue")
+        },
+        stripe: {
+          apiKey: "sk_test_catalog",
+          webhookSecret: "whsec_catalog"
+        },
+        stripeCatalog: createTestStripeCatalogRuntimeConfig()
+      },
       database,
       queueAdapter,
       stripeClient: {
@@ -129,6 +153,10 @@ test(
         );
 
       assert.equal(dashboard.items.length, 1);
+      assert.deepEqual(
+        composition.catalog.bindings,
+        createTestCatalogPlanBindings()
+      );
       assert.equal(checkout.status, "ready");
       assert.equal(checkout.checkoutSessionId, "cs_test_phase4");
       assert.equal(portal.status, "ready");

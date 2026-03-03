@@ -28,10 +28,11 @@ Current implementation state:
 - Phase 4 infrastructure adapters are complete, including Prisma repositories, Stripe and queue adapters, auth scaffolding, logging, and runtime configuration
 - Phase 5 Google authentication, local-user linking, session helpers, and protected member routes are complete
 - Phase 6 seeded tiered content, public pricing shell, member dashboard, and protected article reader experience are complete
+- Phase 7 Stripe catalog bindings, runtime configuration, and dashboard setup documentation are complete
 - no production worker or queue runtime has been implemented
 
 Current focus recommendation:
-- begin Phase 7 and keep it focused on stabilizing the internal catalog to Stripe price mapping before hosted checkout work starts
+- begin Phase 8 and keep it focused on wiring authenticated checkout and billing portal entry points against the now-validated Stripe catalog
 
 ## Frozen MVP Implementation Baseline
 
@@ -253,7 +254,7 @@ Phase 1 must not:
 
 ### Phase 7: Catalog And Stripe Product Mapping
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: create a stable mapping between internal plans and Stripe products and prices
 - Deliverables:
   - internal catalog for all six plan and interval combinations
@@ -267,6 +268,12 @@ Phase 1 must not:
 - Exit criteria:
   - the app can resolve any supported tier and interval to a Stripe price
   - invalid catalog configurations fail fast
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm --filter @stripe-access-management/infrastructure lint`, `pnpm --filter @stripe-access-management/infrastructure typecheck`, `pnpm --filter @stripe-access-management/infrastructure test`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`
+  - Phase 7 introduced typed runtime loading for the six MVP Stripe catalog bindings, shared binding construction for infrastructure composition and tests, catalog setup placeholders in `.env.example`, and repository setup notes in `docs/stripe-catalog-setup.md`
+  - The infrastructure catalog now fails fast on missing identifiers and duplicate price mappings, while product-only binding resolution stays intentionally non-guessing when multiple billing intervals share a Stripe product
+  - Readiness for Phase 8: met
 
 ### Phase 8: Checkout And Billing Portal Flow
 

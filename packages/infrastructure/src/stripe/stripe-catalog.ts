@@ -13,6 +13,18 @@ export interface StripeCatalogPlanBinding extends CatalogPlan {
   stripeProductId: string;
 }
 
+export interface StripeCatalogTierBindingInput {
+  monthlyPriceId: string;
+  productId: string;
+  yearlyPriceId: string;
+}
+
+export interface StripeCatalogBindingsInput {
+  pro: StripeCatalogTierBindingInput;
+  starter: StripeCatalogTierBindingInput;
+  ultra: StripeCatalogTierBindingInput;
+}
+
 export interface StripePlanMetadata {
   billingInterval: BillingInterval;
   localUserId: string;
@@ -46,6 +58,65 @@ export class StaticStripeCatalogPlanResolver implements CatalogPlanResolver {
 
     return binding ? mapStripeBindingToCatalogPlan(binding) : null;
   }
+}
+
+export function buildStripeCatalogPlanBindings(
+  input: StripeCatalogBindingsInput
+): readonly StripeCatalogPlanBinding[] {
+  const bindings = [
+    createStripeCatalogPlanBinding({
+      billingInterval: "MONTHLY",
+      displayName: "Starter Monthly",
+      lookupKey: "starter-monthly",
+      stripePriceId: input.starter.monthlyPriceId,
+      stripeProductId: input.starter.productId,
+      tier: "STARTER"
+    }),
+    createStripeCatalogPlanBinding({
+      billingInterval: "YEARLY",
+      displayName: "Starter Yearly",
+      lookupKey: "starter-yearly",
+      stripePriceId: input.starter.yearlyPriceId,
+      stripeProductId: input.starter.productId,
+      tier: "STARTER"
+    }),
+    createStripeCatalogPlanBinding({
+      billingInterval: "MONTHLY",
+      displayName: "Pro Monthly",
+      lookupKey: "pro-monthly",
+      stripePriceId: input.pro.monthlyPriceId,
+      stripeProductId: input.pro.productId,
+      tier: "PRO"
+    }),
+    createStripeCatalogPlanBinding({
+      billingInterval: "YEARLY",
+      displayName: "Pro Yearly",
+      lookupKey: "pro-yearly",
+      stripePriceId: input.pro.yearlyPriceId,
+      stripeProductId: input.pro.productId,
+      tier: "PRO"
+    }),
+    createStripeCatalogPlanBinding({
+      billingInterval: "MONTHLY",
+      displayName: "Ultra Monthly",
+      lookupKey: "ultra-monthly",
+      stripePriceId: input.ultra.monthlyPriceId,
+      stripeProductId: input.ultra.productId,
+      tier: "ULTRA"
+    }),
+    createStripeCatalogPlanBinding({
+      billingInterval: "YEARLY",
+      displayName: "Ultra Yearly",
+      lookupKey: "ultra-yearly",
+      stripePriceId: input.ultra.yearlyPriceId,
+      stripeProductId: input.ultra.productId,
+      tier: "ULTRA"
+    })
+  ] as const;
+
+  validateStripeCatalogPlanBindings(bindings);
+
+  return bindings;
 }
 
 export function resolveStripeCatalogPlanBinding(
@@ -195,4 +266,10 @@ function parseStringEnum<T extends string>(
 
 function readString(value: string | undefined): string | undefined {
   return value && value.length > 0 ? value : undefined;
+}
+
+function createStripeCatalogPlanBinding(
+  binding: StripeCatalogPlanBinding
+): StripeCatalogPlanBinding {
+  return binding;
 }
