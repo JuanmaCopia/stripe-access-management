@@ -9,7 +9,7 @@ import {
 import {
   createIntegrationDatabaseClient,
   hasDatabaseUrl,
-  resetWebAuthTestDatabase
+  resetWebAppTestDatabase
 } from "../../test/database-test-helpers";
 
 const databaseAvailable = hasDatabaseUrl();
@@ -20,7 +20,7 @@ before(async () => {
     return;
   }
 
-  await resetWebAuthTestDatabase(database);
+  await resetWebAppTestDatabase(database);
 });
 
 beforeEach(async () => {
@@ -28,7 +28,7 @@ beforeEach(async () => {
     return;
   }
 
-  await resetWebAuthTestDatabase(database);
+  await resetWebAppTestDatabase(database);
 });
 
 after(async () => {

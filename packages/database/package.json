@@ -8,6 +8,7 @@
   "scripts": {
     "build": "pnpm prisma:generate && tsc -p tsconfig.json",
     "lint": "eslint src prisma --max-warnings=0",
+    "test": "node ../../scripts/with-root-env.mjs node --import tsx --test \"prisma/**/*.test.ts\"",
     "typecheck": "pnpm prisma:generate && tsc -p tsconfig.json --noEmit",
     "prisma:generate": "node ../../scripts/with-root-env.mjs prisma generate --schema prisma/schema.prisma",
     "prisma:migrate:dev": "node ../../scripts/with-root-env.mjs prisma migrate dev --schema prisma/schema.prisma",

@@ -27,10 +27,11 @@ Current implementation state:
 - Phase 3 core domain modules, policies, ports, use cases, and unit tests are complete
 - Phase 4 infrastructure adapters are complete, including Prisma repositories, Stripe and queue adapters, auth scaffolding, logging, and runtime configuration
 - Phase 5 Google authentication, local-user linking, session helpers, and protected member routes are complete
+- Phase 6 seeded tiered content, public pricing shell, member dashboard, and protected article reader experience are complete
 - no production worker or queue runtime has been implemented
 
 Current focus recommendation:
-- begin Phase 6 and keep it focused on the member content experience that now depends on the completed authenticated session boundary
+- begin Phase 7 and keep it focused on stabilizing the internal catalog to Stripe price mapping before hosted checkout work starts
 
 ## Frozen MVP Implementation Baseline
 
@@ -227,7 +228,7 @@ Phase 1 must not:
 
 ### Phase 6: Content Model And Reader Experience
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: build the content experience before billing is fully wired so access behavior can be tested locally
 - Deliverables:
   - article queries and storage
@@ -243,6 +244,12 @@ Phase 1 must not:
   - signed-in users can browse content
   - locked and unlocked states render correctly
   - the full article body is protected on the server
+- Notes:
+  - Completed on March 3, 2026
+  - Verified with `pnpm db:seed`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`
+  - Phase 6 introduced deterministic seeded tier fixtures, a public landing and pricing shell, server-side dashboard and article delivery helpers in `apps/web`, protected article detail routes with locked and unlocked rendering, and focused seed and web reader tests
+  - Workspace tests now run with serialized database-backed execution so shared Postgres fixtures stay deterministic across `web` and `infrastructure` package verification
+  - Readiness for Phase 7: met
 
 ### Phase 7: Catalog And Stripe Product Mapping
 
