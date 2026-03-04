@@ -7,24 +7,30 @@ export const dynamic = "force-dynamic";
 
 const pricingTiers = [
   {
+    billingInterval: "MONTHLY",
     cta: "Starter access",
     description:
       "Read the starter blueprint and the practical member notes that build the baseline experience.",
     name: "Starter",
+    planTier: "STARTER",
     price: "$9/mo"
   },
   {
+    billingInterval: "MONTHLY",
     cta: "Pro depth",
     description:
       "Unlock deeper operational and growth pieces while keeping lower tiers included automatically.",
     name: "Pro",
+    planTier: "PRO",
     price: "$19/mo"
   },
   {
+    billingInterval: "MONTHLY",
     cta: "Ultra archive",
     description:
       "Reach the highest-tier strategy writing and validate the full locked-versus-unlocked reading path.",
     name: "Ultra",
+    planTier: "ULTRA",
     price: "$39/mo"
   }
 ] as const;
@@ -131,7 +137,13 @@ export default async function HomePage() {
               <p className="eyebrow">{tier.name}</p>
               <p className="pricingPrice">{tier.price}</p>
               <p className="mutedText">{tier.description}</p>
-              <p className="metaText">{tier.cta}</p>
+              <form action="/api/checkout" method="POST">
+                <input name="billingInterval" type="hidden" value={tier.billingInterval} />
+                <input name="planTier" type="hidden" value={tier.planTier} />
+                <button className="button buttonPrimary" type="submit">
+                  {tier.cta}
+                </button>
+              </form>
             </article>
           ))}
         </div>

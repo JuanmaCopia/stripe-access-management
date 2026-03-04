@@ -277,7 +277,7 @@ Phase 1 must not:
 
 ### Phase 8: Checkout And Billing Portal Flow
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: allow users to start and manage subscriptions using Stripe-hosted flows
 - Deliverables:
   - checkout route

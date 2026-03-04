@@ -31,6 +31,11 @@ export default async function AccountPage() {
           <Link className="button buttonPrimary" href="/dashboard">
             Back to dashboard
           </Link>
+          <form action="/api/portal" method="POST">
+            <button className="button buttonGhost" type="submit">
+              Manage billing
+            </button>
+          </form>
         </div>
       </section>
     </main>
