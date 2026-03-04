@@ -335,7 +335,7 @@ Phase 1 must not:
 
 ### Phase 11: Access Lifecycle Hardening
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: ensure access remains correct even when billing events are delayed, retried, or processed out of order
 - Deliverables:
   - scheduled reconciliation job

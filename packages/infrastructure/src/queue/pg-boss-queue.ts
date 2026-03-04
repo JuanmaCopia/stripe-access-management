@@ -84,11 +84,20 @@ export class PgBossQueueAdapter implements QueuePublisher {
   ): Promise<void> {
     await this.start();
 
-    await this.boss.send(this.queueName, mapStripeWebhookIntentToJob(intent));
+    await this.boss.send(this.queueName, mapStripeWebhookIntentToJob(intent), {
+      retryLimit: 3,
+      retryBackoff: true
+    });
     this.logger?.info("Published Stripe webhook job", {
       queueName: this.queueName,
       stripeEventId: intent.stripeEventId
     });
+  }
+
+  async schedule(name: string, cron: string, data?: any): Promise<void> {
+    await this.start();
+    await this.boss.schedule(name, cron, data);
+    this.logger?.info("Scheduled job", { name, cron });
   }
 
   async consumeStripeWebhookProcessing(

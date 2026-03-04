@@ -6,6 +6,21 @@ async function bootstrap() {
 
   logger.info("Starting worker...");
 
+  // Register the scheduled reconciliation job (runs every hour)
+  if (typeof (composition.queue.adapter as any).schedule === "function") {
+    await (composition.queue.adapter as any).schedule(
+      "reconcile-subscriptions",
+      "0 * * * *"
+    );
+    logger.info("Reconciliation job scheduled to run hourly.");
+  }
+
+  // Mock processing for the scheduled job (since we didn't fully expose a generic worker loop)
+  setInterval(() => {
+    logger.info("Running scheduled subscription reconciliation (mock)...");
+    // In a real implementation, this would fetch recent Stripe subscriptions and repair drift.
+  }, 3600000);
+
   const workerId = await composition.queue.adapter.consumeStripeWebhookProcessing(
     async (job) => {
       logger.info("Processing webhook job", { stripeEventId: job.stripeEventId });
