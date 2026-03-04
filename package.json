@@ -8,6 +8,7 @@
     "pnpm": ">=10.30.1"
   },
   "scripts": {
+    "e2e": "pnpm --filter @stripe-access-management/testing test",
     "dev": "pnpm --recursive --parallel --stream --filter @stripe-access-management/web --filter @stripe-access-management/worker dev",
     "build": "pnpm --recursive --if-present build",
     "test": "pnpm --recursive --workspace-concurrency=1 --if-present test",
