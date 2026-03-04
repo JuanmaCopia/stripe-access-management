@@ -353,7 +353,7 @@ Phase 1 must not:
 
 ### Phase 12: Final MVP Product Polish
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: make the MVP feel coherent and launch-ready
 - Deliverables:
   - stronger pricing and upgrade messaging

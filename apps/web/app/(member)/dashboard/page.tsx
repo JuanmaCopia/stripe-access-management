@@ -47,32 +47,38 @@ export default async function DashboardPage() {
           <p className="metaText">Local user id: {session.user.id}</p>
         </div>
 
-        <div className="articleGrid">
-          {result.items.map((item) => (
-            <article className="articleCard" key={item.id}>
-              <div className="articleCardHeader">
-                <span
-                  className={`pill ${item.isLocked ? "pillLocked" : "pillUnlocked"}`}
+        {result.items.length === 0 ? (
+          <div className="panelCentered" style={{ padding: "3rem 0" }}>
+            <p className="mutedText">No articles are currently published. Check back later.</p>
+          </div>
+        ) : (
+          <div className="articleGrid">
+            {result.items.map((item) => (
+              <article className="articleCard" key={item.id}>
+                <div className="articleCardHeader">
+                  <span
+                    className={`pill ${item.isLocked ? "pillLocked" : "pillUnlocked"}`}
+                  >
+                    {item.isLocked
+                      ? `Locked · ${formatPlanTierLabel(item.requiredTier)}`
+                      : "Unlocked"}
+                  </span>
+                </div>
+                <h3>{item.title}</h3>
+                <p className="mutedText">{item.excerpt}</p>
+                <p className="metaText">
+                  Requires {formatPlanTierLabel(item.requiredTier)}
+                </p>
+                <Link
+                  className={`button ${item.isLocked ? "buttonGhost" : "buttonPrimary"}`}
+                  href={`/articles/${item.slug}`}
                 >
-                  {item.isLocked
-                    ? `Locked · ${formatPlanTierLabel(item.requiredTier)}`
-                    : "Unlocked"}
-                </span>
-              </div>
-              <h3>{item.title}</h3>
-              <p className="mutedText">{item.excerpt}</p>
-              <p className="metaText">
-                Requires {formatPlanTierLabel(item.requiredTier)}
-              </p>
-              <Link
-                className={`button ${item.isLocked ? "buttonGhost" : "buttonPrimary"}`}
-                href={`/articles/${item.slug}`}
-              >
-                {item.isLocked ? "View lock details" : "Read article"}
-              </Link>
-            </article>
-          ))}
-        </div>
+                  {item.isLocked ? "View lock details" : "Read article"}
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

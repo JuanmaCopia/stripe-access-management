@@ -284,6 +284,10 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  .shell {
+    padding: 1.5rem 1rem;
+  }
+
   .panelHeader {
     align-items: start;
     flex-direction: column;

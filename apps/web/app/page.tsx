@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAppSession } from "../src/server/auth/session";
 import { GoogleSignInButton } from "../src/ui/auth/google-sign-in-button";
 import { SignOutButton } from "../src/ui/auth/sign-out-button";
+
+export const metadata: Metadata = {
+  title: "Member Reading MVP",
+  description: "Unlock premium articles with our tiered subscription plans."
+};
 
 export const dynamic = "force-dynamic";
 
