@@ -297,7 +297,7 @@ Phase 1 must not:
 
 ### Phase 9: Webhook Intake And Queueing
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: safely receive Stripe events and queue them for background processing
 - Deliverables:
   - webhook route in `apps/web`
