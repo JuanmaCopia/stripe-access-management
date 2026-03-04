@@ -316,7 +316,7 @@ Phase 1 must not:
 
 ### Phase 10: Worker Processing And Subscription Sync
 
-- Status: `[ ]`
+- Status: `[x]`
 - Goal: turn Stripe webhook events into correct local subscription and access state
 - Deliverables:
   - worker bootstrap
